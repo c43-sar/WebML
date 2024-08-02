@@ -11,18 +11,20 @@ def index():
 
 def WeightPredictor(height):
     result = loaded_model.predict([[height]])
-    return "Predicted Weight is " + str(result[0][0])
+    return "Predicted Weight is " + str(result[0][0]) + "kg"
 
-def WeightPredictor_value(height):
-    result = loaded_model.predict([[height]])
-    return str(result[0][0])
+# Uncomment Lines To use HTML 
+
+# def WeightPredictor_value(height):
+#     result = loaded_model.predict([[height]])
+#     return str(result[0][0])
 
 @app.route("/results", methods=["POST"])
 def output():
     if request.method == "POST":
         h = int(request.form['h'])
-        return render_template("result.html", height=h, weight=WeightPredictor_value(h))
-        # return WeightPredictor(h)
+        # return render_template("result.html", height=h, weight=WeightPredictor_value(h))
+        return WeightPredictor(h) # COMMENT THIS IF THE ABOVE LINE IS NOT COMMENTED
 
 if __name__ == "__main__":
     app.run()
